@@ -32,8 +32,10 @@ echo [4/4] 매주 월요일 09:00 자동 실행 등록 완료
 
 echo.
 echo 설치 끝. 지금 바로 돌려보려면 run.cmd 를 더블클릭하세요.
+pause
 exit /b 0
 
 :fail
 echo 설치 실패. 위 메시지를 확인하세요.
+pause
 exit /b 1
