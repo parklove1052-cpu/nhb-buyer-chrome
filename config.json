@@ -7,5 +7,10 @@
     "beauty products importer Tashkent"
   ],
   "max_per_query": 20,
-  "headless": false
+  "headless": false,
+  "linkedin_queries": [
+    "cosmetics distributor Uzbekistan",
+    "beauty wholesale Tashkent"
+  ],
+  "linkedin_max_per_query": 10
 }

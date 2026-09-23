@@ -4,13 +4,14 @@ cd /d "%~dp0"
 
 rem 1) 파이썬 찾기, 없으면 설치
 set "PY="
-py -3 -c "" >nul 2>nul && set "PY=py -3"
-if not defined PY python -c "" >nul 2>nul && set "PY=python"
+py -3 -c "import sys; sys.exit(sys.version_info < (3, 9))" >nul 2>nul && set "PY=py -3"
+if not defined PY python -c "import sys; sys.exit(sys.version_info < (3, 9))" >nul 2>nul && set "PY=python"
 if not defined PY (
   echo [1/4] 파이썬이 없어 설치합니다...
-  winget install -e --id Python.Python.3.12 --silent --accept-package-agreements --accept-source-agreements
-  set "PY=%LocalAppData%\Programs\Python\Python312\python.exe"
+  winget install -e --id Python.Python.3.12 --scope user --location "%LocalAppData%\Programs\Python\Python312" --silent --accept-package-agreements --accept-source-agreements || goto :fail
+  set "PY="%LocalAppData%\Programs\Python\Python312\python.exe""
 )
+%PY% -c "import sys; sys.exit(sys.version_info < (3, 9))" >nul 2>nul || goto :fail
 echo [1/4] 파이썬: %PY%
 
 rem 2) 전용 가상환경 + Playwright 설치 (이미 있으면 건너뜀)
